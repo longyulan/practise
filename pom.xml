@@ -11,12 +11,13 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>com.practise</groupId>
     <artifactId>practise</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>practise-starter</module>
+        <module>practise-web</module>
     </modules>
 
     <properties>
