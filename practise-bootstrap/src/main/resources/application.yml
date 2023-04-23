@@ -1,0 +1,10 @@
+server:
+  # 端口
+  port: 8888
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.109.52.172:8848
+  application:
+    name: practise

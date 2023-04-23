@@ -6,14 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="practise-starter" />
+        <module name="practise-common" />
+        <module name="practise-service" />
+        <module name="practise-dal" />
         <module name="practise-web" />
+        <module name="practise-bootstrap" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="practise-starter" options="-parameters" />
+      <module name="practise-bootstrap" options="-parameters" />
+      <module name="practise-common" options="-parameters" />
+      <module name="practise-dal" options="-parameters" />
+      <module name="practise-service" options="-parameters" />
       <module name="practise-web" options="-parameters" />
     </option>
   </component>
