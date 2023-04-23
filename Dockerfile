@@ -1,8 +1,7 @@
-# 第一阶段:完整的构建环境
-FROM python:latest
-
-# 第二阶段:将代码放到指定的目录
-WORKDIR /dome
-ADD . /dome
-# 第三阶段:执行脚本
-CMD ["python", "/dome/dome.py"]
+FROM java:8
+#前面是自己jar包名字，后面是你重命名的名字
+COPY practise.jar app.jar
+RUN bash -c "touch /app.jar"
+#暴露的端口号
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -10,14 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>practise-web</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>practise-common</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

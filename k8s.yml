@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment #部署
+metadata:
+  name: springboot-app
+spec:
+  replicas: 2 #2个副本
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+        - name: springboot-app
+          image: registry.cn-hangzhou.aliyuncs.com/askajohnny/k8s:v1 #刚刚push到阿里云上的镜像地址
+          ports:
+            - containerPort: 8080 #默认springboot端口
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-app
+spec:
+  selector:
+    app: springboot-app #选中上面的 Deployment
+  ports:
+    - port: 7003 #对外7003端口
+      targetPort: 8080
+
+
+---
+#Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  labels:
+    name: myingress
+spec:
+  IngressClass: nginx
+  rules:
+    - host: springboot.demo.com #所有的host这个域名请求 转发到上面的 Service= springboot-app
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: springboot-app # 转发到 这个Service
+                port:
+                  number: 7003
