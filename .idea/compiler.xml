@@ -2,11 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="practise-common" />
+        <module name="practise-test" />
         <module name="practise-service" />
         <module name="practise-dal" />
         <module name="practise-web" />
@@ -20,6 +22,7 @@
       <module name="practise-common" options="-parameters" />
       <module name="practise-dal" options="-parameters" />
       <module name="practise-service" options="-parameters" />
+      <module name="practise-test" options="-parameters" />
       <module name="practise-web" options="-parameters" />
     </option>
   </component>
