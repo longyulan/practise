@@ -8,3 +8,7 @@ spring:
         server-addr: 47.109.52.172:8848
   application:
     name: practise
+  redis:
+    url: 47.109.52.172
+    port: 6379
+    database: 0
