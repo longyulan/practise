@@ -5,10 +5,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.109.52.172:8848
+        server-addr: 47.108.254.105:8848
   application:
     name: practise
   redis:
-    url: 47.109.52.172
+    host: '47.108.254.105'
     port: 6379
     database: 0
+    password: '000415'

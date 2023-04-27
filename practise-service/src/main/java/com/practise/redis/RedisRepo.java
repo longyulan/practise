@@ -22,6 +22,10 @@ public class RedisRepo {
         boundValueOperations.set(value);
     }
 
+    public String getStr(String key) {
+        return stringRedisTemplate.opsForValue().get(key);
+    }
+
     public <T> T get(String key, Class<T> tClass) {
         String str = stringRedisTemplate.opsForValue().get(key);
         return JSON.parseObject(str, tClass);

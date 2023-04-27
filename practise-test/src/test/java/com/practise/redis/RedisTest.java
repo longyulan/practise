@@ -23,6 +23,6 @@ public class RedisTest extends BaseTest {
 
     @Test
     public void testGet() {
-        log.info(redisRepo.get("test", String.class));
+        log.info(redisRepo.getStr("test"));
     }
 }
