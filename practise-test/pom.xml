@@ -21,7 +21,8 @@
     <dependencies>
         <dependency>
             <groupId>com.practise</groupId>
-            <artifactId>practise-starter</artifactId>
+            <artifactId>practise-bootstrap</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

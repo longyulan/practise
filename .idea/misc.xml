@@ -7,6 +7,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/practise-web/pom.xml" />
         <option value="$PROJECT_DIR$/practise-test/pom.xml" />
+        <option value="$PROJECT_DIR$/practise-bootstrap/pom.xml" />
+        <option value="$PROJECT_DIR$/practise-common/pom.xml" />
+        <option value="$PROJECT_DIR$/practise-dal/pom.xml" />
+        <option value="$PROJECT_DIR$/practise-service/pom.xml" />
       </list>
     </option>
   </component>
