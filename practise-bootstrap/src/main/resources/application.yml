@@ -5,11 +5,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.108.254.105:8848
+        server-addr: 47.109.69.188:8848
   application:
     name: practise
   redis:
-    host: '47.108.254.105'
+    host: '47.109.69.188'
     port: 6379
     database: 0
     password: '000415'
+rocketmq:
+  name-server: 47.109.69.188:9876
+  producer:
+    group: 'practise_producer_group'

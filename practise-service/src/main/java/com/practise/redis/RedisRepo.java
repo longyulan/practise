@@ -2,14 +2,15 @@ package com.practise.redis;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * redis操作类
@@ -22,7 +23,7 @@ import java.util.Set;
 public class RedisRepo {
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 写入String类型
@@ -30,14 +31,8 @@ public class RedisRepo {
      * @param key
      * @param value
      */
-    public void setStr(String key, String value) {
-        redisTemplate.opsForValue().setIfAbsent(key, value);
-    }
-
-    public static void main(String[] args) {
-        RedisTemplate r = new RedisTemplate();
-        r.opsForValue().setIfAbsent("name", "lyl");
-        log.info("name:", r.opsForValue().get("name"));
+    public Boolean setStr(String key, String value) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value);
     }
 
     /**
@@ -50,14 +45,29 @@ public class RedisRepo {
     }
 
     /**
-     * 写入到list集合类型 无序
+     * 写入到list集合类型(一个key，对应一个List集合value，写入值可以一次写入多个，读可以一次读多个，也可以只读一个)
+     * 无序
      * @param key
      * @param o
      * @return
      */
-    public boolean lPush(String key, Object... o) {
-        Long count = redisTemplate.opsForList().leftPush(key, o);
-        return count > 0;
+    public Long lPush(String key, Object... o) {
+        return redisTemplate.opsForList().leftPushAll(key, o);
+    }
+
+    /**
+     * 取指定位置范围的数据
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public <T> List<T> lRange(String key, Integer start, Integer end, Class<T> tClass) {
+        List<Object> list = redisTemplate.opsForList().range(key, start, end);
+        if (CollectionUtils.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return list.stream().map(o -> JSON.parseObject(JSON.toJSONString(o), tClass)).collect(Collectors.toList());
     }
 
     /**
@@ -65,8 +75,12 @@ public class RedisRepo {
      * @param key
      * @return
      */
-    public Object rPop(String key) {
-        return redisTemplate.opsForList().rightPop(key);
+    public <T> T rPop(String key, Class<T> tClass) {
+        Object o = redisTemplate.opsForList().rightPop(key);
+        if (o == null) {
+            return null;
+        }
+        return JSON.parseObject(JSON.toJSONString(o), tClass);
     }
 
     /**
@@ -74,17 +88,26 @@ public class RedisRepo {
      * @param key
      * @return
      */
-    public Object lPop(String key) {
-        return redisTemplate.opsForList().leftPop(key);
+    public <T> T lPop(String key, Class<T> tClass) {
+        Object o = redisTemplate.opsForList().leftPop(key);
+        if (o == null) {
+            return null;
+        }
+        return JSON.parseObject(JSON.toJSONString(o), tClass);
     }
 
     /**
      * 写入hash 多用于写入对象
      * @param key
-     * @param t
+     * @param map
      */
-    public <T> void setHash(String key, T t) {
-        redisTemplate.opsForHash().putAll(key, JSON.parseObject(JSON.toJSONString(t), Map.class));
+    public <T> void setHash(String key, Map<String, T> map) {
+        redisTemplate.opsForHash().putAll(key, map);
+    }
+
+    public Map<Object, Object> getHash(String key) {
+        Map<Object, Object> entries = redisTemplate.opsForHash().entries(key);
+        return entries;
     }
 
     /**
@@ -93,21 +116,29 @@ public class RedisRepo {
      * @param o
      * @return
      */
-    public boolean hSet(String key, Object... o) {
-        Long count = redisTemplate.opsForSet().add(key, o);
-        return count > 0;
+    public Long hSet(String key, Object... o) {
+        return redisTemplate.opsForSet().add(key, o);
     }
 
     /**
      * 写入到zSet类型 有序
      * @param key
-     * @param collection
+     * @param set
      * @return
      */
-    public <T> boolean zSet(String key, Collection<T> collection) {
-        Set<T> set = new HashSet<T>(collection);
-        Long count = redisTemplate.opsForZSet().add(key, set);
-        return count > 0;
+    public Long zSet(String key, Set<ZSetOperations.TypedTuple<Object>> set) {
+        return redisTemplate.opsForZSet().add(key, set);
+    }
+
+    /**
+     * 按下标范围读取zSet数据
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set zRange(String key, Integer start, Integer end) {
+        return redisTemplate.opsForZSet().range(key, start, end);
     }
 
 }
