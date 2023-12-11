@@ -21,12 +21,12 @@ pipeline {
         stage('任务2：通过maven构建项目') {
             // 实现任务的具体流程
             steps {
-                echo '通过maven构建项目-SUCCESS'
+                sh '/var/jenkins_home/maven/bin/mvn clean package -DskipTest'
             }
         }
         stage('任务3：通过sonarqube做代码质量检测') {
             steps {
-                echo '通过sonarqube做代码质量检测-SUCCESS'
+                sh '/var/jenkins_home/sonar-scanner/bin/sonar-scanner -Dsonar.sources=./ -Dsonar.projectname=${JOB_NAME} -Dsonar.projectKey=${JOB_NAME} -Dsonar.java.binaries=./target/ -Dsonar.login=7e47cd48d08789e76ba106dd772f9bfaa15d46ff'
             }
         }
         stage('任务4：通过docker制作自定义镜像') {
