@@ -21,7 +21,7 @@ pipeline {
         stage('任务2：通过maven构建项目') {
             // 实现任务的具体流程
             steps {
-
+                echo ''
             }
         }
         stage('任务3：通过sonarqube做代码质量检测') {
