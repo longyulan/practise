@@ -21,7 +21,7 @@ pipeline {
         stage('任务2：通过maven构建项目') {
             // 实现任务的具体流程
             steps {
-                echo ''
+                sh '/Users/longyulan/apache-maven-3.6.3/bin/mvn clean package -DskipTest'
             }
         }
         stage('任务3：通过sonarqube做代码质量检测') {
