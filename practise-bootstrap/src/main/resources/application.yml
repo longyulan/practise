@@ -17,3 +17,10 @@ rocketmq:
   name-server: 47.109.69.188:9876
   producer:
     group: 'practise_producer_group'
+xxl:
+  job:
+    admin:
+      addresses: http://xxl-job-qa.yzw.cn/xxl-job-admin
+    executor:
+      appName: practise
+      port: 8433
