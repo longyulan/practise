@@ -14,7 +14,7 @@ pipeline {
         stage('任务1：拉取git仓库代码') {
             // 实现任务的具体流程
             steps {
-                checkout scmGit(branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[url: 'https:#github.com/longyulan/practise.git']])
+                checkout scmGit(branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/longyulan/practise.git']])
             }
         }
         // 单个任务
