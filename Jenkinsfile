@@ -31,7 +31,8 @@ pipeline {
         }
         stage('任务4：通过docker制作自定义镜像') {
             steps {
-                echo '通过docker制作自定义镜像-SUCCESS'
+                sh '''mv ./target/*.jar ./
+                docker build -t ${JOB_NAME}:${tag} .'''
             }
         }
         stage('任务5：将自定义镜像推送到harbor') {
