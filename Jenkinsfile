@@ -31,7 +31,7 @@ pipeline {
         }
         stage('任务4：通过docker制作自定义镜像') {
             steps {
-                sh '''mv ./target/*.jar ./
+                sh '''mv /Users/longyulan/.jenkins/workspace/pipeline/practise-bootstrap/target/practise-bootstrap-1.0-SNAPSHOT.jar ./
                 docker build -t ${JOB_NAME}:${tag} .'''
             }
         }

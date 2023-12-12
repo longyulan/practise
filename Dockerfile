@@ -1,7 +1,7 @@
-FROM java:8
+FROM java:11
 #前面是自己jar包名字，后面是你重命名的名字
-COPY practise.jar app.jar
-RUN bash -c "touch /app.jar"
+COPY practise-bootstrap-1.0-SNAPSHOT.jar practise-bootstrap-1.0-SNAPSHOT.jar
+RUN bash -c "touch /practise-bootstrap-1.0-SNAPSHOT.jar"
 #暴露的端口号
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+EXPOSE 8066
+ENTRYPOINT ["java", "-jar", "practise-bootstrap-1.0-SNAPSHOT.jar"]
