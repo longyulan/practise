@@ -1,4 +1,4 @@
-FROM java:21
+FROM java:1.8
 #前面是自己jar包名字，后面是你重命名的名字
 COPY practise-bootstrap-1.0-SNAPSHOT.jar practise-bootstrap-1.0-SNAPSHOT.jar
 RUN bash -c "touch /practise-bootstrap-1.0-SNAPSHOT.jar"
